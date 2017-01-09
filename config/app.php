@@ -229,5 +229,6 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],
+    'title' => 'MyBlog',
 
 ];
