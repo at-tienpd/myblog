@@ -99,5 +99,5 @@ return [
             'expire' => 60,
         ],
     ],
-
+    'image_path' => 'image'.DIRECTORY_SEPARATOR.'avatar'.DIRECTORY_SEPARATOR,
 ];
