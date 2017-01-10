@@ -50,6 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'avatar' => 'required',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -64,10 +65,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $nameAvatar=$this->uploadAvatar($data['avatar'], config('auth.image_path'));
         return User::create([
             'name' => $data['name'],
+            'avatar' => $nameAvatar,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'birthday' => $data['birthday'],
+            'address' => $data['address'],
         ]);
+    }
+
+    /**
+     * Upload avatar for user.
+     *
+     * @param file   $image file image
+     * @param string $path  the image path
+     *
+     * @return avatar name
+     */
+    public function uploadAvatar($image, $path)
+    {
+        $nameAvatar =time().'-'.$image->getClientOriginalName();
+        $image->move($path, $nameAvatar);
+        return $nameAvatar;
     }
 }
