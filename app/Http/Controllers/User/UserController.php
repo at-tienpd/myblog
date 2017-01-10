@@ -66,8 +66,8 @@ class UserController extends Controller
         foreach ($roles as $role) {
             if (isset($input['roles'][$role->id])) {
                 $usersSync = $input['roles'][$role->id]['users'];
-            }
                 $role->users()->sync($usersSync);
+            }
         }
         return back();
     }
