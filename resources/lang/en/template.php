@@ -14,4 +14,15 @@ return [
          'register'  => 'Register',
          'logout'  => 'Log out'
     ],
+    'admin' => [
+         'toggle' => 'Toggle Navigation',
+         'project_name'  => 'Laravel',
+         'nav'  =>  [
+             'roles' => 'Roles',
+             'login'  => 'Login',
+             'register'  => 'Register',
+             'logout'  => 'Log out'
+          ],
+         'logout'  => 'Log out'
+    ],
 ];

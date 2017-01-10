@@ -71,7 +71,7 @@
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">{{ trans('welcome.home') }}</a>
                     @else
-                        <a href="{{ url('/login') }}">{{ trans('welcome.login') }}</a>
+                        <a href="{{ route('dashboard.index') }}">{{ trans('welcome.login') }}</a>
                         <a href="{{ url('/register') }}">{{ trans('welcome.register') }}</a>
                     @endif
                 </div>
