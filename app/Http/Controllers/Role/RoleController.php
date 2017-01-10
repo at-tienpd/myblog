@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\RoleRepository;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 
 class RoleController extends Controller
 {
@@ -52,7 +54,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
         $role = $request->only('name', 'description', 'display_name');
         $this->roleRepository->create($role);
@@ -93,7 +95,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRoleRequest $request, $id)
     {
         $role = $request->only('name', 'description', 'display_name');
         $this->roleRepository->update($role, $id);

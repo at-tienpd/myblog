@@ -26,7 +26,7 @@
                                 <input type="checkbox" name="roles[{{ $role->id }}][users][]" value="{{ $user->id }}" checked="checked">
                             @else
                                 <input type="checkbox" name="roles[{{ $role->id }}][users][]" value="{{ $user->id }}">
-                            @endif
+                             @endif
                         </td>
                         @endforeach
                     </tr>

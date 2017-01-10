@@ -45,4 +45,16 @@ return [
         'list' => 'Roles allow you to fine tune the security and administration. A role defines a group of users that have certain privileges as defined on the permissions page',
     ],
     'create' => 'You can create a new role ',
+    'placeholder'    => [
+        'add' => [
+            'name' => 'Name',
+            'display_name'    => 'Display name',
+            'description'  => 'Description',
+        ],
+        'edit' => [
+            'name' => 'Name',
+            'display_name'    => 'Display name',
+            'description'  => 'Description',
+        ],
+    ],
 ];

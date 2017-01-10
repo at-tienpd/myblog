@@ -39,15 +39,24 @@
             <legend>{{ trans('role.legend_form.add') }}</legend>
             <div class="form-group">
                 <label for="name">{{ trans('role.field_name.name') }}</label>
-                <input type="text" class="form-control" id="name" placeholder="Name" name="name" required="required">
+                <input type="text" class="form-control" id="name" placeholder="{{ trans('role.placeholder.add.name') }}" name="name" required="required">
+                @if ($errors->has('name'))
+                     <small class=error>{{ $errors->first('name', ':message') }}</small>
+                @endif
             </div>
             <div class="form-group">
                 <label for="display_name">{{ trans('role.field_name.display_name') }}</label>
-                <input type="text" class="form-control" id="display_name" placeholder="Display name" name="display_name" required="required">
+                <input type="text" class="form-control" id="display_name" placeholder="{{ trans('role.placeholder.add.display_name') }}" name="display_name" required="required">
+                @if ($errors->has('display_name'))
+                     <small class=error>{{ $errors->first('display_name', ':message') }}</small>
+                @endif
             </div>
             <div class="form-group">
                 <label for="description">{{ trans('role.field_name.description') }}</label>
-                <input type="text" class="form-control" id="description" placeholder="Description" name="description" required="required">
+                <input type="text" class="form-control" id="description" placeholder="{{ trans('role.placeholder.add.description') }}" name="description" required="required">
+                @if ($errors->has('description'))
+                     <small class=error>{{ $errors->first('description', ':message') }}</small>
+                @endif
             </div>
             <button class="btn btn-default" type="submit">{{ trans('role.button.store') }}</button>
             </fieldset>

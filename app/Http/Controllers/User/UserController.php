@@ -6,6 +6,8 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SetRoleRequest;
+use Auth;
 
 class UserController extends Controller
 {
@@ -63,10 +65,8 @@ class UserController extends Controller
         foreach ($roles as $role) {
             if (isset($input['roles'][$role->id])) {
                 $usersSync = $input['roles'][$role->id]['users'];
-            } else {
-                $usersSync = [];
             }
-            $role->users()->sync($usersSync);
+                $role->users()->sync($usersSync);
         }
         return back();
     }
