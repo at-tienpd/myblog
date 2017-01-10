@@ -62,6 +62,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $roles = $this->roleRepository->all();
+        $usersSync = [];
         foreach ($roles as $role) {
             if (isset($input['roles'][$role->id])) {
                 $usersSync = $input['roles'][$role->id]['users'];
