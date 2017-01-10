@@ -43,7 +43,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">{{ trans('template.user.login') }}</a></li>
+                            <li><a href="{{ url('/admin') }}">{{ trans('template.user.login') }}</a></li>
                             <li><a href="{{ url('/register') }}">{{ trans('template.user.register') }}</a></li>
                         @else
                             <li class="dropdown">

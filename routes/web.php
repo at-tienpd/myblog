@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+    Route::resource('roles', 'Role\RoleController');
+    Route::get('/role/list', 'User\UserController@listUserByRole')->name('list-role');;
+    Route::post('/set-role', 'User\UserController@setRole')->name('set-role');
+    Route::get('/', function () {
+        return view('template.admin');
+    });
+});

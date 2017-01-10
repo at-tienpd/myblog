@@ -230,5 +230,5 @@ return [
 
     ],
     'title' => 'MyBlog',
-
+    'title_admin' => 'MyBlog - Admin',
 ];
