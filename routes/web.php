@@ -27,4 +27,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/set-role', 'User\UserController@setRole')->name('set-role');
 
     Route::resource('permissions', 'Permission\PermissionController');
+    Route::get('/permission/list', 'Permission\PermissionController@listPermissionByRole')->name('list-permistion');
+    Route::post('/set-permission', 'Permission\PermissionController@setPermission')->name('set-permission');
 });

@@ -25,4 +25,21 @@ class Permission extends EntrustPermission
     {
         return $this->belongsToMany('App\Models\Role');
     }
+
+    /**
+     * Check role for user.
+     *
+     * @param string $roleName name of role
+     *
+     * @return boolean
+     */
+    public function hasRole($roleName)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->name == $roleName) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

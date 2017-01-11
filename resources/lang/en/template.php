@@ -19,6 +19,7 @@ return [
          'project_name'  => 'Laravel',
          'nav'  =>  [
              'roles' => 'Roles',
+             'permissions' => 'Permissions',
              'login'  => 'Login',
              'register'  => 'Register',
              'logout'  => 'Log out'

@@ -50,5 +50,6 @@ return [
         'store' => 'Success! New permission has been created.',
         'update'    => 'Success! This permission has been updated.',
         'delete'    => 'Success! This permission has been deleted.',
+        'set_role'   => 'Setting success permission!',
     ],
 ];
