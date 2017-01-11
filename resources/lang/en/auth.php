@@ -48,5 +48,9 @@ return [
             'submit'   => 'Reset Password'
         ],
     ],
+    'login_social'    => [
+        'facebook' => 'Facebook Login',
+        'twitter' => 'Twitter Login'
+    ],
 
 ];

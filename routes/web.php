@@ -30,3 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/permission/list', 'Permission\PermissionController@listPermissionByRole')->name('list-permistion');
     Route::post('/set-permission', 'Permission\PermissionController@setPermission')->name('set-permission');
 });
+
+Route::get('/redirect/{provider}','User\UserController@redirect');
+
+Route::get('/callback/{provider}','User\UserController@callback');

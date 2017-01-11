@@ -1,4 +1,7 @@
 @extends('template.user')
+@push('scripts')
+    <script src="https://use.fontawesome.com/75c543e7bd.js"></script>
+@endpush
 @section('content')
 <div class="container">
     <div class="row">
@@ -44,6 +47,18 @@
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : ''}}> {{ trans('auth.login.check_remember')}}
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <a class="btn btn-link" href="redirect/facebook">
+                                  <i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i> {{ trans('auth.login_social.facebook')}}
+                                </a>
+                                 <a class="btn btn-link" href="redirect/twitter">
+                                 <i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i> 
+                                 {{ trans('auth.login_social.twitter')}}
+                                </a>
                             </div>
                         </div>
 
