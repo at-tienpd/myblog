@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SetRoleRequest;
 use Auth;
+use App\Providers\SocialAccountService;
+use Socialite;
 
 class UserController extends Controller
 {
@@ -70,5 +72,32 @@ class UserController extends Controller
             }
         }
         return back();
+    }
+
+    /**
+     * Redirect user.
+     *
+     * @param provider $provider provider
+     *
+     * @return redirect
+     */
+    public function redirect($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * Set role for user.
+     *
+     * @param App\Providers\SocialAccountService $service  service
+     * @param provider                           $provider provider
+     *
+     * @return redirect
+     */
+    public function callback(SocialAccountService $service, $provider)
+    {
+        $user = $service->createOrGetUser(Socialite::driver($provider));
+        auth()->login($user);
+        return redirect()->to('/home');
     }
 }
