@@ -18,15 +18,24 @@ class PermissionController extends Controller
      * @var App\Models\Permission
      */
     protected $permissionRepository;
+
+    /**
+     * The Role instance.
+     *
+     * @var App\Models\Role
+     */
+    protected $roleRepository;
     
     /**
      * Create a new PermissionRepository instance.
      *
      * @param PermissionRepository $permissionRepository PermissionRepository instance
+     * @param PermissionRepository $roleRepository       RoleRepository instance
      */
-    public function __construct(PermissionRepository $permissionRepository)
+    public function __construct(PermissionRepository $permissionRepository, RoleRepository $roleRepository)
     {
         $this->permissionRepository = $permissionRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     // *
@@ -118,6 +127,40 @@ class PermissionController extends Controller
     {
         $this->permissionRepository->delete($id);
         Session::flash('message', trans('permission.message.delete'));
+        return back();
+    }
+
+    /**
+     * List all permission for set role.
+     *
+     * @return view
+     */
+    public function listPermissionByRole()
+    {
+        $roles = $this->roleRepository->all();
+        $permissions = $this->permissionRepository->all();
+        return view('admin.permission.permission_role', compact('roles', 'permissions'));
+    }
+
+    /**
+     * Set permission for role.
+     *
+     * @param \Illuminate\Http\Request $request permission
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function setPermission(Request $request)
+    {
+        $input = $request->all();
+        $roles = $this->roleRepository->all();
+        $permissionsSync = [];
+        foreach ($roles as $role) {
+            if (isset($input['roles'][$role->id])) {
+                $permissionsSync = $input['roles'][$role->id]['permissions'];
+                $role->permissions()->sync($permissionsSync);
+            }
+        }
+        Session::flash('message', trans('permission.message.set_role'));
         return back();
     }
 }
