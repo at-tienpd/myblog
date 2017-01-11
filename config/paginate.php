@@ -9,5 +9,14 @@ return [
     |
     */
 
-    'paginate' => 10
+    'admin' => [
+        'permission' => [
+            'add' => 10,
+            'edit' => 5
+        ],
+        'role' => [
+            'add' => 10,
+            'edit' => 5
+        ],
+    ], 
 ];

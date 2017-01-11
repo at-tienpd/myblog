@@ -43,7 +43,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $roles = $this->roleRepository->paginate(config('paginate.paginate'));
+        $roles = $this->roleRepository->paginate(config('paginate.admin.role.add'));
         return view('admin.role.add', compact('roles'));
     }
 
@@ -82,7 +82,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $roles = $this->roleRepository->paginate(config('paginate.paginate'));
+        $roles = $this->roleRepository->paginate(config('paginate.admin.role.edit'));
         $role = $this->roleRepository->find($id);
         return view('admin.role.edit', compact('roles', 'role'));
     }
