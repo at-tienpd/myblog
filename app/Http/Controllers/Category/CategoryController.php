@@ -45,9 +45,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryRepository->all();
-        $html = $this->categoryRepository->printSelect($categories);
-        return view('admin.category.add', compact('html'));
+        $categories = Category::getNestedList('name');
+        return view('admin.category.add', compact('categories'));
     }
 
     /**

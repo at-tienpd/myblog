@@ -12,7 +12,7 @@
         @endif
          <form action="{{ route('categories.store') }}" method="post">
         {{ csrf_field() }}
-        <fieldset>
+            <fieldset>
             <legend>{{ trans('category.legend_form.add') }}</legend>
             <div class="form-group">
                 <label for="name">{{ trans('category.field_name.name') }}</label>
@@ -23,7 +23,12 @@
             </div>
             <div class="form-group">
                 <label for="parent">{{ trans('category.field_name.parent_id') }}</label>
-                {!! $html !!}
+                <select class="form-control" name="parent_id">
+                    <option value="{{ trans('category.root.value') }}">{{ trans('category.root.name') }}</option>
+                    @foreach ($categories as $key => $val)
+                    <option value="{!! $key !!}">{!! $val !!}</option>
+                    @endforeach
+                </select>
             </div>
             <button class="btn btn-default" type="submit">{{ trans('category.button.store') }}</button>
             </fieldset>

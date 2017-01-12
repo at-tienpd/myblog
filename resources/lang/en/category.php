@@ -32,4 +32,8 @@ return [
     'message' => [
         'store' => 'Success! New category has been created.',
     ],
+    'root' => [
+        'value' => 'root',
+        'name'    => '--Please choice parent category--',
+    ],
 ];
