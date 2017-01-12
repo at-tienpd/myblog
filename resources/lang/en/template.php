@@ -20,6 +20,7 @@ return [
          'nav'  =>  [
              'roles' => 'Roles',
              'permissions' => 'Permissions',
+             'categories' => 'Categories',
              'login'  => 'Login',
              'register'  => 'Register',
              'logout'  => 'Log out'

@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class,
 
         /*
          * Package Service Providers...

@@ -17,7 +17,8 @@
         "symfony/dom-crawler": "3.1.*",
         "squizlabs/php_codesniffer": "2.*",
         "phpmd/phpmd" : "@stable",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "5.2.x-dev",
+        "baum/baum": "~1.1"
     },
     "autoload": {
         "classmap": [

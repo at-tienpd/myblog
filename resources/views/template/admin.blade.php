@@ -35,7 +35,10 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             @if (!Auth::guest())
-            <li><img class="img-circle img-admin" src="{{ config('auth.image_path').Auth::user()->avatar }}"></li>
+            @php
+             $urlImageAdmin = config('app.url').'/'.config('auth.image_path').Auth::user()->avatar;
+            @endphp
+            <li><img class="img-circle img-admin" src="{{  $urlImageAdmin  }}"></li>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 {{ Auth::user()->name }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -62,6 +65,7 @@
           <ul class="nav nav-sidebar">
             <li><a href="{{ route('list-role') }}">{{ trans('template.admin.nav.roles') }}</a></li>
             <li><a href="{{ route('list-permistion') }}">{{ trans('template.admin.nav.permissions') }}</a></li>
+            <li><a href="{{ route('categories.create') }}">{{ trans('template.admin.nav.categories') }}</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
