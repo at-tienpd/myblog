@@ -38,4 +38,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role');
     }
+
+    /**
+     * One to Many relation
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
 }
