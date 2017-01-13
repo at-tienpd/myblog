@@ -100,4 +100,5 @@ return [
         ],
     ],
     'image_path' => 'image'.DIRECTORY_SEPARATOR.'avatar'.DIRECTORY_SEPARATOR,
+    'image_path_post' => 'image'.DIRECTORY_SEPARATOR.'post'.DIRECTORY_SEPARATOR,
 ];

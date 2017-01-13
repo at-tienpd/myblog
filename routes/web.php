@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+Route::group(['prefix' => 'admin'], function() {
     Route::resource('dashboard', 'Admin\AdminController');
 
     Route::resource('roles', 'Role\RoleController');

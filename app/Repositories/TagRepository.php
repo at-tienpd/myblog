@@ -20,4 +20,30 @@ class TagRepository extends BaseRepository
     {
         $this->model = $model;
     }
+
+    /**
+     * Store tags
+     *
+     * @param Illuminate\Http\Request $request request
+     * @param Post instance           $post    post
+     *
+     * @return mixed
+     */
+    public function storeTag($request, $post)
+    {
+        if ($request['tags'] != '') {
+            $tags = explode(',', $request['tags']);
+            foreach ($tags as $tag) {
+                $tagCheck = Tag::where('tag', $tag)->first();
+                if (is_null($tagCheck)) {
+                    $tagNew = new Tag;
+                    $tagNew->tag = $tag;
+                    $tagNew->save();
+                    $post->tags()->attach($tagNew->id);
+                } else {
+                    $post->tags()->attach($tagCheck->id);
+                }
+            }
+        }
+    }
 }

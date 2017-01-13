@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\CategoryRepository;
+use App\Repositories\PostRepository;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
@@ -18,15 +19,24 @@ class CategoryController extends Controller
      * @var App\Models\Category
      */
     protected $categoryRepository;
+
+    /**
+     * The Post instance.
+     *
+     * @var App\Models\Post
+     */
+    protected $postRepository;
     
     /**
      * Create a new CategoryRepository instance.
      *
      * @param CategoryRepository $categoryRepository CategoryRepository instance
+     * @param PostRepository     $postRepository     PostRepository instance
      */
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->postRepository = $postRepository;
     }
 
     // *
@@ -127,6 +137,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $this->categoryRepository->delete($id);
+        $this->postRepository->deleteBy($id);
         Session::flash('message', trans('category.message.delete'));
         Category::rebuild();
         return back();
