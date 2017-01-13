@@ -11,11 +11,15 @@ return [
 
     'admin' => [
         'permission' => [
-            'add' => 10,
+            'add' => 5,
             'edit' => 5
         ],
         'role' => [
-            'add' => 10,
+            'add' => 5,
+            'edit' => 5
+        ],
+        'category' => [
+            'add' => 5,
             'edit' => 5
         ],
     ], 

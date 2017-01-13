@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\CategoryRepository;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Session;
 
 class CategoryController extends Controller
@@ -45,14 +46,15 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::getNestedList('name');
-        return view('admin.category.add', compact('categories'));
+        $categories = $this->categoryRepository->paginate(config('paginate.admin.category.add'));
+        $categoriesNested = Category::getNestedList('name');
+        return view('admin.category.add', compact('categories', 'categoriesNested'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request description
+     * @param \Illuminate\Http\StoreCategoryRequest $request description
      *
      * @return \Illuminate\Http\Response
      */
@@ -78,37 +80,55 @@ class CategoryController extends Controller
     //     //
     // }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id id category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $categories = $this->categoryRepository->paginate(config('paginate.admin.category.edit'));
+        $category = $this->categoryRepository->find($id);
+        $categoriesNested = Category::getNestedList('name');
+        return view('admin.category.edit', compact('categories', 'categoriesNested', 'category'));
+    }
 
-    // *
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-     
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\UpdateCategoryRequest $request description
+     * @param int                                    $id      id category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateCategoryRequest $request, $id)
+    {
+        $category = $request->only('name', 'parent_id');
+        if ($request ->parent_id !== 'root') {
+            $category['parent_id'] = $request->parent_id;
+        } else {
+            $category['parent_id'] = null;
+        }
+        $this->categoryRepository->update($category, $id);
+        Category::rebuild();
+        Session::flash('message', trans('category.message.update'));
+        return back();
+    }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id id category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->categoryRepository->delete($id);
+        Session::flash('message', trans('category.message.delete'));
+        Category::rebuild();
+        return back();
+    }
 }

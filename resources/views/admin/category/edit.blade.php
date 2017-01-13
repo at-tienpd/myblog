@@ -3,7 +3,7 @@
         <div class="page-header">
             <h1>{{ trans('category.page_header.add') }}</h1>
         </div>
-        <p>{{ trans('category.description.add') }}</p>
+        <p>{{ trans('category.description.edit') }}</p>
         @if (Session::has('message'))
             <div class="alert alert-info alert-dismissible">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -11,7 +11,7 @@
             </div>
         @endif
         <table class="table table-hover table-bordered">
-               <caption>{{ trans('category.table_caption.add') }}</caption>
+               <caption>{{ trans('category.table_caption.edit') }}</caption>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -42,13 +42,14 @@
                 </tbody>
         </table>
         {{ $categories->links() }}
-         <form action="{{ route('categories.store') }}" method="post">
+         <form action="{{ route('categories.update', $category->id) }}" method="post">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
             <fieldset>
-            <legend>{{ trans('category.legend_form.add') }}</legend>
+            <legend>{{ trans('category.legend_form.edit') }}</legend>
             <div class="form-group">
                 <label for="name">{{ trans('category.field_name.name') }}</label>
-                <input type="text" class="form-control" id="name" placeholder="{{ trans('category.placeholder.add.name') }}" name="name" required="required">
+                <input type="text" class="form-control" id="name" placeholder="{{ trans('category.placeholder.add.name') }}" name="name" required="required" value="{{ $category -> name }}">
                 @if ($errors->has('name'))
                      <small class=error>{{ $errors->first('name', ':message') }}</small>
                 @endif
@@ -62,7 +63,7 @@
                     @endforeach
                 </select>
             </div>
-            <button class="btn btn-default" type="submit">{{ trans('category.button.store') }}</button>
+            <button class="btn btn-default" type="submit">{{ trans('category.button.update') }}</button>
             </fieldset>
         </form>
 @stop
