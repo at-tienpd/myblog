@@ -35,3 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 Route::get('/redirect/{provider}','User\UserController@redirect');
 
 Route::get('/callback/{provider}','User\UserController@callback');
+
+Route::resource('posts', 'Post\PostController');
+
+Route::resource('tags', 'Tag\TagController');

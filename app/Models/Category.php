@@ -62,4 +62,14 @@ class Category extends Node
      * @var array
      */
     protected $fillable = ['id', 'name', 'parent_id', 'lft', 'rgt', 'depth'];
+
+    /**
+     * One to Many relation
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
 }

@@ -13,7 +13,7 @@ class AddCustomColumnToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function($table) {
+        Schema::table('users', function(Blueprint $table) {
             $table->string('avatar')->after('name')->nullable();
             $table->date('birthday')->after('password')->nullable();
             $table->string('address')->after('birthday')->nullable();
@@ -27,11 +27,10 @@ class AddCustomColumnToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function($table) {
-            $table->string('avatar');
-            $table->date('birthday');
-            $table->string('address');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('avatar');
+            $table->dropColumn('birthday');
+            $table->dropColumn('address');
         });
-
     }
 }
