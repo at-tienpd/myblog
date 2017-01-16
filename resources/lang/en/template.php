@@ -21,6 +21,7 @@ return [
              'roles' => 'Roles',
              'permissions' => 'Permissions',
              'categories' => 'Categories',
+             'posts' => 'Posts',
              'login'  => 'Login',
              'register'  => 'Register',
              'logout'  => 'Log out'

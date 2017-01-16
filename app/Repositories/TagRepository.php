@@ -24,26 +24,61 @@ class TagRepository extends BaseRepository
     /**
      * Store tags
      *
-     * @param Illuminate\Http\Request $request request
-     * @param Post instance           $post    post
+     * @param Illuminate\Http\Request $inputs request
+     * @param App\Models\Post         $post   post
      *
      * @return mixed
      */
-    public function storeTag($request, $post)
+    public function storeTag($inputs, $post)
     {
-        if ($request['tags'] != '') {
-            $tags = explode(',', $request['tags']);
+        if ($inputs['tags'] != '') {
+            $tags = explode(',', $inputs['tags']);
             foreach ($tags as $tag) {
-                $tagCheck = Tag::where('tag', $tag)->first();
-                if (is_null($tagCheck)) {
-                    $tagNew = new Tag;
-                    $tagNew->tag = $tag;
-                    $tagNew->save();
-                    $post->tags()->attach($tagNew->id);
-                } else {
-                    $post->tags()->attach($tagCheck->id);
+                if (trim($tag) !== '') {
+                    $tagCheck = Tag::where('tag', $tag)->first();
+                    if (is_null($tagCheck)) {
+                        $tagNew = new Tag;
+                        $tagNew->tag = trim($tag);
+                        $tagNew->save();
+                        $post->tags()->attach($tagNew->id);
+                    } else {
+                        $post->tags()->attach($tagCheck->id);
+                    }
                 }
             }
+        }
+    }
+
+    /**
+     * Update tags.
+     *
+     * @param array           $inputs value array tags
+     * @param App\Models\Post $post   post
+     *
+     * @return void
+     */
+    public function updateTag($inputs, $post)
+    {
+        $tagsId = [];
+        if ($inputs['tags'] != '') {
+            $tags = explode(',', $inputs['tags']);
+            foreach ($tags as $tag) {
+                if (trim($tag) !== '') {
+                    $tagNew = Tag::where('tag', trim($tag))->first();
+                    if (is_null($tagNew)) {
+                        $tagNew = new Tag;
+                        $tagNew->tag = trim($tag);
+                        $tagNew->save();
+                    }
+                    array_push($tagsId, $tagNew->id);
+                }
+            }
+        }
+        if (!empty($tagsId)) {
+            $post->tags()->sync($tagsId);
+            return true;
+        } else {
+            return false;
         }
     }
 }

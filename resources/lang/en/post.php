@@ -11,6 +11,8 @@ return [
 
     'message' => [
         'store' => 'Success! New post has been created.',
+        'update' => 'Success! Post has been updated.',
+        'update_tags_failed' => 'Tags not allow blank',
     ],
     'placeholder'    => [
         'title' => 'Enter title here.',
@@ -20,9 +22,11 @@ return [
     ],
     'page_header'    => [
         'add' => 'Add new post',
+        'edit' => 'Edit post',
     ],
     'description' => [
         'add' => 'This page allow you can add new post.',
+        'edit' => 'This page allow you can edit post you choice.',
     ],
     'field_name'   =>   [
         'title' => 'Title',
@@ -30,12 +34,17 @@ return [
         'description'  => 'Description',
         'body'    => 'Body',
         'tags'  => 'Tags',
-        'category'  => 'Choice category:'
+        'category'  => [
+                'name'    => 'Choice category',
+                'option_default'    => '--Please choice category--',
+        ],
     ],
     'button'=> [
         'store'    => 'Add post',
+        'update'    => 'Edit post',
     ],
     'page_title' => [
         'add' => 'Add new post',
+        'detail' => 'Detail',
     ],
 ];
