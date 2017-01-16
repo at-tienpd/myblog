@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::resource('categories', 'Category\CategoryController');
     Route::get('posts', 'Post\PostController@indexAdmin')->name('list-posts');
     Route::post('/status', 'Post\PostController@publish')->name('publish-posts');
+    Route::resource('tags', 'Tag\TagController');
 });
 
 Route::get('/redirect/{provider}','User\UserController@redirect');
@@ -40,4 +41,4 @@ Route::get('/callback/{provider}','User\UserController@callback');
 
 Route::resource('posts', 'Post\PostController');
 
-Route::resource('tags', 'Tag\TagController');
+
