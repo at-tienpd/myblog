@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/set-permission', 'Permission\PermissionController@setPermission')->name('set-permission');
     Route::resource('categories', 'Category\CategoryController');
     Route::get('posts', 'Post\PostController@indexAdmin')->name('list-posts');
+    Route::post('/status', 'Post\PostController@publish')->name('publish-posts');
 });
 
 Route::get('/redirect/{provider}','User\UserController@redirect');
