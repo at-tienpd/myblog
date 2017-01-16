@@ -150,6 +150,38 @@ class PostController extends Controller
     public function indexAdmin()
     {
         $posts = $this->postRepository->paginate(config('paginate.admin.post'));
-        return view('admin.post.publish', compact('posts'));
+        return view('admin.post.list', compact('posts'));
+    }
+
+    /**
+     * Publish post.
+     *
+     * @param \Illuminate\Http\Request $request description
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function publish(Request $request)
+    {
+        if ($request->status == true) {
+            $this->postRepository->unpublishPost($request->id);
+        } else {
+            $this->postRepository->publishPost($request->id);
+        }
+        Session::flash('message', trans('post.message.status'));
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id id permission
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->postRepository->delete($id);
+        Session::flash('message', trans('post.message.delete'));
+        return back();
     }
 }

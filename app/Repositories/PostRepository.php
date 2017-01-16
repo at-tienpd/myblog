@@ -64,4 +64,28 @@ class PostRepository extends BaseRepository
             return true;
         }
     }
+    
+    /**
+     * Publish post
+     *
+     * @param int $id post id
+     *
+     * @return boolean
+     */
+    public function publishPost($id)
+    {
+        return $this->model->where('id', $id)->update(['status' => true]);
+    }
+
+    /**
+     * Unpublish post
+     *
+     * @param int $id post id
+     *
+     * @return boolean
+     */
+    public function unpublishPost($id)
+    {
+        return $this->model->where('id', $id)->update(['status' => false]);
+    }
 }
