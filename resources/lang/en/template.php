@@ -22,6 +22,7 @@ return [
              'permissions' => 'Permissions',
              'categories' => 'Categories',
              'posts' => 'Posts',
+             'tags' => 'Tags',
              'login'  => 'Login',
              'register'  => 'Register',
              'logout'  => 'Log out'
