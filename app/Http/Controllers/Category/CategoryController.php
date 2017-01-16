@@ -57,7 +57,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = $this->categoryRepository->paginate(config('paginate.admin.category.add'));
-        $categoriesNested = Category::getNestedList('name');
+        $categoriesNested = Category::getNestedList('name', null, '-');
         return view('admin.category.add', compact('categories', 'categoriesNested'));
     }
 
@@ -101,7 +101,7 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryRepository->paginate(config('paginate.admin.category.edit'));
         $category = $this->categoryRepository->find($id);
-        $categoriesNested = Category::getNestedList('name');
+        $categoriesNested = Category::getNestedList('name', null, '-');
         return view('admin.category.edit', compact('categories', 'categoriesNested', 'category'));
     }
 

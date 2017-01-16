@@ -59,7 +59,7 @@
                 <select class="form-control" name="parent_id">
                     <option value="{{ trans('category.root.value') }}">{{ trans('category.root.name') }}</option>
                     @foreach ($categoriesNested as $key => $val)
-                    <option value="{!! $key !!}">{!! $val !!}</option>
+                    <option value="{!! $key !!}" @if($key == $category->parent_id) selected @endif>{!! $val !!}</option>
                     @endforeach
                 </select>
             </div>

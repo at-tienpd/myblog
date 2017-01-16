@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Models\Post;
+use Session;
 
 class PostRepository extends BaseRepository
 {
@@ -46,5 +47,21 @@ class PostRepository extends BaseRepository
     public function deleteBy($value)
     {
         return $this->model->where('category_id', '>=', $value)->delete();
+    }
+
+    /**
+     * Count view post
+     *
+     * @param int $id post id
+     *
+     * @return boolean
+     */
+    public function countView($id)
+    {
+        if (! ( Session::get('id') == $id)) {
+            $this->model->where('id', $id)->increment('view');
+            Session::put('id', $id);
+            return true;
+        }
     }
 }

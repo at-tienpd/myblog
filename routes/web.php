@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::resource('dashboard', 'Admin\AdminController');
 
     Route::resource('roles', 'Role\RoleController');
@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/permission/list', 'Permission\PermissionController@listPermissionByRole')->name('list-permistion');
     Route::post('/set-permission', 'Permission\PermissionController@setPermission')->name('set-permission');
     Route::resource('categories', 'Category\CategoryController');
+    Route::get('posts', 'Post\PostController@indexAdmin')->name('list-posts');
 });
 
 Route::get('/redirect/{provider}','User\UserController@redirect');
