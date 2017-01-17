@@ -20,4 +20,28 @@ class CommentRepository extends BaseRepository
     {
         $this->model = $model;
     }
+
+    /**
+     * Publish post
+     *
+     * @param int $id post id
+     *
+     * @return boolean
+     */
+    public function publishComment($id)
+    {
+        return $this->model->where('id', $id)->update(['status' => true]);
+    }
+
+    /**
+     * Unpublish post
+     *
+     * @param int $id post id
+     *
+     * @return boolean
+     */
+    public function unpublishComment($id)
+    {
+        return $this->model->where('id', $id)->update(['status' => false]);
+    }
 }

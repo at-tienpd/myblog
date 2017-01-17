@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::resource('categories', 'Category\CategoryController');
     Route::get('posts', 'Post\PostController@indexAdmin')->name('list-posts');
     Route::post('/status', 'Post\PostController@publish')->name('publish-posts');
+    Route::post('/comment-status', 'Comment\CommentController@publish')->name('publish-comments');
     Route::resource('tags', 'Tag\TagController');
 });
 

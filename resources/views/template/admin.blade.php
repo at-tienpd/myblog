@@ -68,6 +68,7 @@
             <li><a href="{{ route('categories.create') }}">{{ trans('template.admin.nav.categories') }}</a></li>
             <li><a href="{{ route('list-posts') }}">{{ trans('template.admin.nav.posts') }}</a></li>
             <li><a href="{{ route('tags.create') }}">{{ trans('template.admin.nav.tags') }}</a></li>
+            <li><a href="{{ route('comments.index') }}">{{ trans('template.admin.nav.comments') }}</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

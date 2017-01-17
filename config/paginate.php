@@ -23,6 +23,7 @@ return [
             'edit' => 5
         ],
         'post' => 10,
+        'comment' => 10,
         'tag' => [
             'add' => 5,
             'edit' => 5

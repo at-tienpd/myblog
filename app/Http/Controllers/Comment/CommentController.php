@@ -27,6 +27,18 @@ class CommentController extends Controller
     public function __construct(CommentRepository $commentRepository)
     {
         $this->commentRepository = $commentRepository;
+        $this->middleware('admin')->only('index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $comments = $this->commentRepository->paginate(config('paginate.admin.comment'));
+        return view('admin.comment.list', compact('comments'));
     }
 
     /**
@@ -44,6 +56,38 @@ class CommentController extends Controller
         }
         $comment->save();
         Session::flash('message', trans('comment.message.store'));
+        return back();
+    }
+
+    /**
+     * Publish comment.
+     *
+     * @param \Illuminate\Http\Request $request description
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function publish(Request $request)
+    {
+        if ($request->status == true) {
+            $this->commentRepository->unpublishComment($request->id);
+        } else {
+            $this->commentRepository->publishComment($request->id);
+        }
+        Session::flash('message', trans('comment.message.status'));
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id id permission
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->commentRepository->delete($id);
+        Session::flash('message', trans('comment.message.delete'));
         return back();
     }
 }
