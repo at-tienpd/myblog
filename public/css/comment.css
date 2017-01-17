@@ -274,3 +274,12 @@ body {
 .form-comment form{
 	padding: 10px;
 }
+.detail-post{
+	background: white;
+    margin-bottom: 20px;
+    box-shadow: 10px 10px 5px #888888;
+    padding: 10px;
+}
+.form-comment .col-sm-1{
+	padding-top: 10px;
+}

@@ -17,6 +17,7 @@
                         <div class="panel-body">
                             {{ $node->body }}
                         </div><!-- /panel-bod y -->
+                        @permission('comment_post')
                         <div class="form-comment">
                             <form action="{{ route('comments.store') }}" method="post">
                            {{ csrf_field() }}
@@ -28,6 +29,7 @@
                                 <button type="submit" class="btn btn-default">{{ trans('comment.button.store') }}</button>
                              </form>
                         </div>
+                        @endpermission
                     </div><!-- /panel panel-default -->
                 </div><!-- /col-sm-5 -->
 

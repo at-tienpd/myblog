@@ -10,8 +10,7 @@
 @endpush
 
 @section('content')
-<div class="container">
-      <div class="row">
+<div class="container detail-post">
       @if (Session::has('message'))
     <div class="alert alert-info alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -33,7 +32,7 @@
             </ul>
           </nav>
         </div>
-      </div><!-- /.row -->
+      @permission('comment_post')
       <div class="form-comment">
         <div class="col-sm-1">
             <div class="thumbnail">
@@ -54,9 +53,7 @@
         </form>
         </div>
       </div>
-      <div class="row">
-  <!-- Contenedor Principal -->
-</div>
+      @endpermission
 </div>
 
 <div class="container">
@@ -78,6 +75,7 @@
                         <div class="panel-body">
                             {{ $node->body }}
                         </div><!-- /panel-bod y -->
+                        @permission('comment_post')
                         <div class="form-comment">
                             <form action="{{ route('comments.store') }}" method="post">
                            {{ csrf_field() }}
@@ -89,6 +87,7 @@
                                 <button type="submit" class="btn btn-default">{{ trans('comment.button.store') }}</button>
                              </form>
                         </div>
+                        @endpermission
                     </div><!-- /panel panel-default -->
                 </div><!-- /col-sm-5 -->
 
@@ -104,5 +103,7 @@
     @endforeach
     </ul>
 </div>
+
+
 
 @endsection

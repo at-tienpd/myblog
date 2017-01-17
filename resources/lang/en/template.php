@@ -23,6 +23,7 @@ return [
              'categories' => 'Categories',
              'posts' => 'Posts',
              'tags' => 'Tags',
+             'comments' => 'Comments',
              'login'  => 'Login',
              'register'  => 'Register',
              'logout'  => 'Log out'
