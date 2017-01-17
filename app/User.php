@@ -48,4 +48,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Post');
     }
+
+    /**
+     * One to Many relation
+     *
+     * @return Illuminate\Database\Eloquent\Relations\Has Many
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
 }
