@@ -41,4 +41,6 @@ Route::get('/callback/{provider}','User\UserController@callback');
 
 Route::resource('posts', 'Post\PostController');
 
+Route::resource('comments', 'Comment\CommentController');
+
 

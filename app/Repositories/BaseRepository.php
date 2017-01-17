@@ -102,4 +102,18 @@ abstract class BaseRepository
     {
         return $this->model->where($attribute, '=', $value)->firstOrFail($columns);
     }
+
+    /**
+     * Get item by its attribute
+     *
+     * @param string $attribute attribute
+     * @param string $value     value
+     * @param array  $columns   columns
+     *
+     * @return mixed
+     */
+    public function findAllBy($attribute, $value, $columns = array('*'))
+    {
+        return $this->model->where($attribute, '=', $value)->get($columns);
+    }
 }

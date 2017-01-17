@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\TagRepository;
+use App\Repositories\CommentRepository;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use Session;
 use Auth;
@@ -36,19 +38,28 @@ class PostController extends Controller
      * @var App\Models\User
      */
     protected $userRepository;
+
+    /**
+     * The Comment instance.
+     *
+     * @var App\Models\Comment
+     */
+    protected $commentRepository;
     
     /**
      * Create a new PostRepository instance.
      *
-     * @param PostRepository $postRepository PostRepository instance
-     * @param TagRepository  $tagRepository  TagRepository instance
-     * @param UserRepository $userRepository UserRepository instance
+     * @param PostRepository    $postRepository    PostRepository instance
+     * @param TagRepository     $tagRepository     TagRepository instance
+     * @param UserRepository    $userRepository    UserRepository instance
+     * @param CommentRepository $commentRepository CommentRepository instance
      */
-    public function __construct(PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository)
+    public function __construct(PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository, CommentRepository $commentRepository)
     {
         $this->postRepository = $postRepository;
         $this->tagRepository = $tagRepository;
         $this->userRepository = $userRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -135,11 +146,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $comments = $this->commentRepository->findAllBy('post_id', $id)->toHierarchy();
         $post = $this->postRepository->find($id);
         $idUser = $post->user_id;
         $user = $this->userRepository->find($idUser);
         $this->postRepository->countView($id);
-        return view('post.show', compact('post', 'user'));
+        return view('post.show', compact('post', 'user', 'comments'));
     }
 
     /**

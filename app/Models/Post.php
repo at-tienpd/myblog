@@ -49,4 +49,14 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
+
+    /**
+     * One to Many relation
+     *
+     * @return Illuminate\Database\Eloquent\Relations\Has Many
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
 }
