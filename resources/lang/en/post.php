@@ -58,4 +58,8 @@ return [
         'add' => 'Add new post',
         'detail' => 'Detail',
     ],
+    'action' => [
+        'like' => 'Like this',
+        'comment' => 'Comment',
+    ],
 ];

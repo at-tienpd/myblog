@@ -15,6 +15,8 @@ return [
         'store'    => 'Comment',
     ],
     'comment_at' => 'Comment at: ',
+    'author' => 'Author',
+    'reaply' => 'Reaply',
     'field_name'   =>   [
         'body' => 'Body',
         'post'    => 'Post',

@@ -147,11 +147,12 @@ class PostController extends Controller
     public function show($id)
     {
         $comments = $this->commentRepository->findAllBy('post_id', $id)->toHierarchy();
+        $countComments = count($this->commentRepository->findAllBy('post_id', $id));
         $post = $this->postRepository->find($id);
         $idUser = $post->user_id;
         $user = $this->userRepository->find($idUser);
         $this->postRepository->countView($id);
-        return view('post.show', compact('post', 'user', 'comments'));
+        return view('post.show', compact('post', 'user', 'comments', 'countComments'));
     }
 
     /**
