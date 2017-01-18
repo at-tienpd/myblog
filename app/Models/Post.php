@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Auth;
+use willvincent\Rateable\Rateable;
 
 class Post extends Model
 {
+    use Rateable;
     /**
      * The table associated with the model.
      *

@@ -6,6 +6,7 @@
 
 @push('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/comment.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/rating.css') }}" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 @endpush
 
@@ -33,6 +34,26 @@
             </ul>
           </nav>
         </div>
+        @if(!$countRating > 0)
+          <div class="row rating-wrapper">
+          <h4>{{ trans('rating.name_header') }}@if ($errors->has('rating'))
+                <small class=error>{{ $errors->first('rating', ':message') }}</small>
+            @endif</h4>
+          <form action="{{ route('ratings.store') }}" method="post">
+          {{ csrf_field() }}
+          <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+              <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+              <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+              <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+              <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+              <input type="hidden" value="{{ $post->id }}" name="post_id">
+          </fieldset>
+
+          <button type="submit" class="btn-default btn">{{ trans('rating.button.store') }}</button>
+          </form>
+        </div>
+        @endif
 
       
     <!-- /like post and count comment post-->
