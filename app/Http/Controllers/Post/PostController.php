@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\TagRepository;
+use App\Repositories\RatingRepository;
 use App\Repositories\CommentRepository;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use willvincent\Rateable\Rating;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
@@ -45,6 +47,12 @@ class PostController extends Controller
      * @var App\Models\Comment
      */
     protected $commentRepository;
+     /**
+     * The Rating instance.
+     *
+     * @var willvincent\Rateable\Rating
+     */
+    protected $ratingRepository;
     
     /**
      * Create a new PostRepository instance.
@@ -53,13 +61,15 @@ class PostController extends Controller
      * @param TagRepository     $tagRepository     TagRepository instance
      * @param UserRepository    $userRepository    UserRepository instance
      * @param CommentRepository $commentRepository CommentRepository instance
+     * @param RatingRepository  $ratingRepository  RatingRepository instance
      */
-    public function __construct(PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository, CommentRepository $commentRepository)
+    public function __construct(PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository, CommentRepository $commentRepository, RatingRepository $ratingRepository)
     {
         $this->postRepository = $postRepository;
         $this->tagRepository = $tagRepository;
         $this->userRepository = $userRepository;
         $this->commentRepository = $commentRepository;
+        $this->ratingRepository = $ratingRepository;
     }
 
     /**
@@ -146,13 +156,14 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $countRating = $this->ratingRepository->countRating($id);
         $comments = $this->commentRepository->findAllBy('post_id', $id)->toHierarchy();
         $countComments = $this->commentRepository->findAllBy('post_id', $id)->count();
         $post = $this->postRepository->find($id);
         $idUser = $post->user_id;
         $user = $this->userRepository->find($idUser);
         $this->postRepository->countView($id);
-        return view('post.show', compact('post', 'user', 'comments', 'countComments'));
+        return view('post.show', compact('post', 'user', 'comments', 'countComments', 'countRating'));
     }
 
     /**

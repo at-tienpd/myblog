@@ -48,4 +48,6 @@ Route::get('post/like/{id}', ['as' => 'post.like', 'uses' => 'Like\LikeControlle
 
 Route::get('comment/like/{id}', ['as' => 'comment.like', 'uses' => 'Like\LikeController@likeComment']);
 
+Route::resource('ratings', 'Rating\RatingController');
+
 
