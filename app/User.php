@@ -58,4 +58,24 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    /**
+     * Get all of the like posts that are assigned this tag.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\Morphed By Many
+     */
+    public function likedPosts()
+    {
+        return $this->morphedByMany('App\Models\Post', 'likeable')->whereDeletedAt(null);
+    }
+
+    /**
+     * Get all of the like comments that are assigned this tag.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\Morphed By Many
+     */
+    public function likedComments()
+    {
+        return $this->morphedByMany('App\Models\Comment', 'likeable')->whereDeletedAt(null);
+    }
 }

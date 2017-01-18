@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Post extends Model
 {
@@ -58,5 +59,26 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
+    }
+
+    /**
+     * Get all of the users like post that are assigned this tag.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\Morphed By Many
+     */
+    public function likes()
+    {
+        return $this->morphToMany('App\User', 'likeable')->whereDeletedAt(null);
+    }
+
+    /**
+     * Check user like or not like.
+     *
+     * @return status like of user
+     */
+    public function getIsLikedAttribute()
+    {
+        $like = $this->likes()->whereUserId(Auth::id())->first();
+        return (!is_null($like)) ? true : false;
     }
 }

@@ -18,6 +18,7 @@
     </div>
     @endif
         <div class="blog-main">
+          <!-- /detail post -->
           <div class="blog-post">
             <h2 class="blog-post-title">{{ $post->title }}</h2>
             <p class="blog-post-meta">{{ $post->created_at }} by <a href="#">{{ $user ->name }}</a></p>
@@ -32,6 +33,25 @@
             </ul>
           </nav>
         </div>
+
+      
+    <!-- /like post and count comment post-->
+    <ul class="nav nav-pills" role="tablist">
+      <li role="presentation">
+        @if($post->likes()->count() > 0) <a data-toggle="modal" data-target=".bs-example-modal-sm">{{ trans('post.action.like') }}<span class="badge">{{ $post->likes()->count() }}</span></a> @endif
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+              @foreach ($post->likes as $user)
+              {{ $user->name }}<br>
+              @endforeach
+              </div>
+          </div>
+        </div>
+      </li>
+      <li role="presentation"><a href="#">{{ trans('post.action.comment') }} <span class="badge">{{ $countComments }}</span></a></li>
+    </ul>
+
       @permission('comment_post')
       <div class="form-comment">
         <div class="col-sm-1">
@@ -43,6 +63,11 @@
         <form action="{{ route('comments.store') }}" method="post">
         {{ csrf_field() }}
           <div class="form-group">
+            @if ($post->isLiked)
+            <a href="{{ route('post.like', $post->id) }}"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
+            @else
+            <a href="{{ route('post.like', $post->id) }}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></a>
+            @endif
             <textarea type="text" class="form-control" name="body" required="required"></textarea>
             @if ($errors->has('body'))
                 <small class=error>{{ $errors->first('body', ':message') }}</small>
@@ -70,11 +95,20 @@
                 <div class="col-sm-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong>{{ $node->user->name }}</strong> <span class="text-muted">{{ trans('comment.comment_at') }}{{ $node->created_at }}</span>
+                            <strong>{{ $node->user->name }}</strong> @if($node->user->name == $post ->user->name) <b>{{ trans('comment.author') }}</b> @endif <span class="text-muted">{{ trans('comment.comment_at') }}{{ $node->created_at }}</span>@if(count($node->getDescendants())>0) {{ trans('comment.reaply') }} <span class="badge">{{ count($node->getDescendants()) }}</span> @endif
                         </div>
                         <div class="panel-body">
                             {{ $node->body }}
+                            <div class="action" >
+                            @if($node->likes->count() > 0) <i>{{ $node->likes->count() }} likes this !</i> @endif<br>
+                            @if ($node->isLiked)
+                            <a href="{{ route('comment.like', $node->id) }}"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
+                            @else
+                            <a href="{{ route('comment.like', $node->id) }}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></a>
+                        @endif
+                        </div>
                         </div><!-- /panel-bod y -->
+
                         @permission('comment_post')
                         <div class="form-comment">
                             <form action="{{ route('comments.store') }}" method="post">
@@ -103,7 +137,4 @@
     @endforeach
     </ul>
 </div>
-
-
-
 @endsection
